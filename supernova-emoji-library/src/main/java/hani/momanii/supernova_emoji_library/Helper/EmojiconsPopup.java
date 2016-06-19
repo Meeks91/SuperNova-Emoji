@@ -100,7 +100,7 @@ public class EmojiconsPopup extends PopupWindow implements ViewPager.OnPageChang
         this.rootView = rootView;
         View customView = createCustomView();
         setContentView(customView);
-        setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setSize(LayoutParams.MATCH_PARENT, 255);
         setBackgroundDrawable(null);
 
@@ -120,7 +120,7 @@ public class EmojiconsPopup extends PopupWindow implements ViewPager.OnPageChang
         this.rootView = rootView;
         View customView = createCustomView();
         setContentView(customView);
-        setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setSize(LayoutParams.MATCH_PARENT, 255);
         setBackgroundDrawable(null);
 
