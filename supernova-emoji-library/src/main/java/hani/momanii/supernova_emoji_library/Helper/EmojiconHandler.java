@@ -1129,6 +1129,11 @@ public final class EmojiconHandler {
         if (useSystemDefault) {
             return;
         }
+        
+          AsyncTask addEmojisTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+           
 
         int textLength = text.length();
         int textLengthToProcessMax = textLength - index;
@@ -1225,6 +1230,11 @@ public final class EmojiconHandler {
                 text.setSpan(new EmojiconSpan(context, icon, emojiSize), i, i + skip, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
+        
+             return null;
+            }
+        };
+                addEmojisTask.execute();
     }
 
     private static int getKeyCapEmoji(int unicode) {
