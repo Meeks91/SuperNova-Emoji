@@ -17,6 +17,7 @@
 package hani.momanii.supernova_emoji_library.Helper;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.text.Spannable;
 import android.util.SparseIntArray;
 
@@ -1124,16 +1125,15 @@ public final class EmojiconHandler {
      * @param length
      * @param useSystemDefault
      */
-    public static void addEmojis(final Context context, Spannable text, int emojiSize, int emojiAlignment, int textSize, int index, int length, boolean useSystemDefault) {
+    public static void addEmojis(final Context context, final Spannable text, final int emojiSize, int emojiAlignment, int textSize, final int index, final int length, boolean useSystemDefault) {
 
         if (useSystemDefault) {
             return;
         }
-        
-          AsyncTask addEmojisTask = new AsyncTask() {
+
+        AsyncTask addEmojisTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-           
 
         int textLength = text.length();
         int textLengthToProcessMax = textLength - index;
@@ -1230,11 +1230,11 @@ public final class EmojiconHandler {
                 text.setSpan(new EmojiconSpan(context, icon, emojiSize), i, i + skip, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
-        
-             return null;
+                return null;
             }
         };
-                addEmojisTask.execute();
+
+        addEmojisTask.execute();
     }
 
     private static int getKeyCapEmoji(int unicode) {
