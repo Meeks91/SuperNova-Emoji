@@ -1124,7 +1124,7 @@ public final class EmojiconHandler {
      * @param length
      * @param useSystemDefault
      */
-    public static void addEmojis(Context context, Spannable text, int emojiSize, int emojiAlignment, int textSize, int index, int length, boolean useSystemDefault) {
+    public static void addEmojis(final Context context, Spannable text, int emojiSize, int emojiAlignment, int textSize, int index, int length, boolean useSystemDefault) {
 
         if (useSystemDefault) {
             return;
