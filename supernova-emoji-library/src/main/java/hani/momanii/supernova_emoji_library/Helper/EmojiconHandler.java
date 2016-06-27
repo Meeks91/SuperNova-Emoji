@@ -17,9 +17,10 @@
 package hani.momanii.supernova_emoji_library.Helper;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.text.Spannable;
+import android.util.Log;
 import android.util.SparseIntArray;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -1073,14 +1074,18 @@ public final class EmojiconHandler {
 
     /**
      * Convert emoji characters of the given Spannable to the according emojicon.
-     *
-     * @param context
+     *  @param context
      * @param text
+     * @param mEmojiconSize
+     * @param mEmojiconAlignment
      * @param emojiSize
      * @param emojiAlignment
      * @param textSize
+     * @param mUseSystemDefault
+     * @param emojiconTextView
+     * @param type
      */
-    public static void addEmojis(Context context, Spannable text, int emojiSize, int emojiAlignment, int textSize) {
+    public static void addEmojis(Context context, Spannable text, int mEmojiconSize, int mEmojiconAlignment, int emojiSize, int emojiAlignment, int textSize, boolean mUseSystemDefault, EmojiconTextView emojiconTextView, TextView.BufferType type) {
         addEmojis(context, text, emojiSize, emojiAlignment, textSize, 0, -1, false);
     }
 
@@ -1125,15 +1130,11 @@ public final class EmojiconHandler {
      * @param length
      * @param useSystemDefault
      */
-    public static void addEmojis(final Context context, final Spannable text, final int emojiSize, int emojiAlignment, int textSize, final int index, final int length, boolean useSystemDefault) {
+    public static void addEmojis(Context context, Spannable text, int emojiSize, int emojiAlignment, int textSize, int index, int length, boolean useSystemDefault) {
 
         if (useSystemDefault) {
             return;
         }
-
-        AsyncTask addEmojisTask = new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] objects) {
 
         int textLength = text.length();
         int textLengthToProcessMax = textLength - index;
@@ -1207,14 +1208,20 @@ public final class EmojiconHandler {
                         String resourceName = "emoji_" + hexUnicode + "_" + hexFollowUnicode;
 
                         int resourceId = 0;
-                        if (sEmojisModifiedMap.containsKey(resourceName)) {
-                            resourceId = sEmojisModifiedMap.get(resourceName);
-                        } else {
-                            resourceId = context.getResources().getIdentifier(resourceName, "drawable", context.getApplicationContext().getPackageName());
-                            if (resourceId != 0) {
-                                sEmojisModifiedMap.put(resourceName, resourceId);
-                            }
-                        }
+
+                        Log.v("sEmojisModifiedMap", "before first condiiton and sEmojisModifiedMap toString is: " + sEmojisModifiedMap.toString());
+
+                      //  if (sEmojisModifiedMap.containsKey(resourceName)) {
+                         //   Log.v("sEmojisModifiedMap", "first condition is true and sEmojisModifiedMap toString is: " + sEmojisModifiedMap.toString());
+                       //     resourceId = sEmojisModifiedMap.get(resourceName);
+                      //  } else {
+                       //     Log.v("sEmojisModifiedMap", "second condition is true and sEmojisModifiedMap toString is: " + sEmojisModifiedMap.toString());
+                       //     resourceId = context.getResources().getIdentifier(resourceName, "drawable", context.getApplicationContext().getPackageName());
+                         //   if (resourceId != 0) {
+                          //      sEmojisModifiedMap.put(resourceName, resourceId);
+                            //    Log.v("sEmojisModifiedMap", "third condition is true and sEmojisModifiedMap toString is: " + sEmojisModifiedMap.toString());
+                            //}
+                       // }
 
                         if (resourceId == 0) {
                             followSkip = 0;
@@ -1230,11 +1237,8 @@ public final class EmojiconHandler {
                 text.setSpan(new EmojiconSpan(context, icon, emojiSize), i, i + skip, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
-                return null;
-            }
-        };
 
-        addEmojisTask.execute();
+
     }
 
     private static int getKeyCapEmoji(int unicode) {
